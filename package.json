@@ -1,0 +1,14 @@
+{
+  "name": "reveal-sync",
+  "version": "1.0.0",
+  "description": "Reveal-md with browsersync, allows for live editing markdown slides",
+  "author": "Edwin Hoksberg <edwin@edwinhoksberg.nl>",
+  "license": "MIT",
+  "repository": "https://github.com/edwinhoksberg/reveal-sync",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "browser-sync": "^2.11.2"
+  }
+}
+
