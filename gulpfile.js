@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
-    concat = require('gulp-concat'),
+    concat = require('gulp-concat-util'),
     exec = require('child_process').exec,
     browserSync = require('browser-sync').create(),
     watch = require('gulp-watch');
@@ -21,7 +21,7 @@ gulp.task('watch', function() {
 
     watch(options.slidesDirectory + '/**/*.md', function () {
         gulp.src(options.slidesDirectory + '/**/*.md')
-            .pipe(concat('slides.md'))
+            .pipe(concat('slides.md', { sep: '\r\n---\r\n' }))
             .pipe(gulp.dest(options.outputDirectory));
 
         browserSync.reload();
