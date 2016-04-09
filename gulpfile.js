@@ -3,22 +3,13 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
     exec = require('child_process').exec,
-    browserSync = require('browser-sync').create();
+    browserSync = require('browser-sync').create(),
+    watch = require('gulp-watch');
 
 var options = {
-    slidesDirectory: './slides/',
-    outputDirectory: './build/',
+    slidesDirectory: './slides',
+    outputDirectory: './build'
 };
-
-gulp.task('build', function() {
-    return gulp.src(options.slidesDirectory + '*.md')
-        .pipe(concat('slides.md'))
-        .pipe(gulp.dest(options.outputDirectory));
-});
-
-gulp.task('build-watch', ['build'], function() {
-    browserSync.reload();
-});
 
 gulp.task('watch', function() {
     browserSync.init({
@@ -26,8 +17,13 @@ gulp.task('watch', function() {
         proxy: 'http://localhost:1948/slides.md'
     });
 
-    exec('reveal-md ' + options.outputDirectory + 'slides.md --disableAutoOpen')
+    exec('reveal-md ' + options.outputDirectory + '/slides.md --disableAutoOpen');
 
-    gulp.watch(options.slidesDirectory + '*.md', ['build-watch']);
+    watch(options.slidesDirectory + '/**/*.md', function () {
+        gulp.src(options.slidesDirectory + '/**/*.md')
+            .pipe(concat('slides.md'))
+            .pipe(gulp.dest(options.outputDirectory));
+
+        browserSync.reload();
+    });
 });
-
